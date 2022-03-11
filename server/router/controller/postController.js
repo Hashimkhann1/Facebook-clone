@@ -12,11 +12,20 @@ export const TextPost = async (req , res) => {
 }
 
 
-export const getTextPostDb = async (req , res) => {
+export const getTextPost = async (req , res) => {
     try {
-        let textPost = await textModel.find({})
-        res.status(200).json(textPost)
+        let textdata = await textModel.find({})
+        res.status(200).json(textdata)
     } catch (error) {
-        res.status(500).json('error while getting textPost from router' , error)
+        res.status(500).json('error in getTextPost from postController' , error)
+    }
+} 
+
+export const deletePosttext = async (req , res) => {
+    try {
+        let textPost = await textModel.findById(req.params.id)
+        textPost.delete()
+    } catch (error) {
+        res.status(500).json('error in deleting text post from postController in router' , error)
     }
 }
